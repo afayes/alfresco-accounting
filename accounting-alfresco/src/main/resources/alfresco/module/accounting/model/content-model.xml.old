@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<model name="acc:model" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+	<description>Ixxus accounting model</description>
+	<author>Ixxus</author>
+	<version>1.0</version>
+
+	<!-- Imports are required to allow references to definitions in other models -->
+	<imports>
+		<!-- Import Alfresco Definitions -->
+		<import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+		<import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+		<import uri="http://www.alfresco.org/model/application/1.0" prefix="app" />
+		<import uri="http://www.alfresco.org/model/wcmmodel/1.0" prefix="wcm" />
+		<import uri="http://www.alfresco.org/model/forum/1.0" prefix="fm" />
+		<import uri="http://www.alfresco.org/model/bpm/1.0" prefix="bpm" />
+	</imports>
+
+	<!-- Introduction of new namespaces defined by this model -->
+	<namespaces>
+		<namespace uri="http://www.ixxus.co.uk/model/accounting/1.0" prefix="acc" />
+	</namespaces>
+
+	<constraints />
+	<types>
+		<type name="acc:sampleType">
+			<title>Sample Type</title>
+			<parent>cm:content</parent>
+			<properties>
+				<property name="acc:sampleTypeProperty">
+					<title>Sample Type Property</title>
+					<type>d:text</type>
+				</property>
+			</properties>
+		</type>
+	</types>
+	<aspects>
+		<aspect name="acc:sampleAspect">
+			<title>Sample Aspect</title>
+			<properties>
+				<property name="acc:sampleAspectProperty">
+					<title>Sample Aspect Property</title>
+					<type>d:text</type>
+				</property>
+			</properties>
+		</aspect>
+	</aspects>
+</model>

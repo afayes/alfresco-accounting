@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Definition of new Model -->
+<model name="acc:model" xmlns="http://www.alfresco.org/model/dictionary/1.0">
+    <!-- Optional meta-data about the model -->
+    <description>Accounting Model</description>
+    <author>Abul Fayes</author>
+    <version>1.0</version>
+
+    <!-- Imports are required to allow references to definitions in other models -->
+    <imports>
+        <!-- Import Alfresco Dictionary Definitions -->
+        <import uri="http://www.alfresco.org/model/dictionary/1.0" prefix="d" />
+        <!-- Import Alfresco Content Domain Model Definitions -->
+        <import uri="http://www.alfresco.org/model/content/1.0" prefix="cm" />
+    </imports>
+
+    <!-- Introduction of new namespaces defined by this model -->
+    <namespaces>
+        <namespace uri="http://www.accounting.com/model/content/1.0" prefix="acc" />
+    </namespaces>
+
+    <constraints>
+        <constraint name="acc:archiveType" type="LIST">
+            <parameter name="allowedValues">
+                <list>
+                    <value>Digital</value>
+                    <value>Physical</value>
+                </list>
+            </parameter>
+        </constraint>
+    </constraints>
+
+    <types>
+        <!-- Enterprise-wide generic document type -->
+        <type name="acc:doc">
+            <title>Accounting Document</title>
+            <parent>cm:content</parent>
+            <associations>
+                <association name="acc:relatedDocuments">
+                    <title>Related Documents</title>
+                    <source>
+                        <mandatory>false</mandatory>
+                        <many>true</many>
+                    </source>
+                    <target>
+                        <class>acc:doc</class>
+                        <mandatory>false</mandatory>
+                        <many>true</many>
+                    </target>
+                </association>
+            </associations>
+            <mandatory-aspects>
+                <aspect>cm:generalclassifiable</aspect>
+            </mandatory-aspects>
+        </type>
+
+        <type name="acc:profitAndLoss">
+            <title>Profit and Loss Document</title>
+            <parent>acc:doc</parent>
+            <properties>
+                <property name="acc:grossProfit">
+                    <type>d:int</type>
+                </property>
+                <property name="acc:netProfit">
+                    <type>d:int</type>
+                </property>
+            </properties>
+        </type>
+
+        <type name="acc:balanceSheet">
+            <title>Balance Sheet Document</title>
+            <parent>acc:doc</parent>
+            <properties>
+                <property name="acc:capital">
+                    <type>d:int</type>
+                </property>
+            </properties>
+        </type>
+
+    </types>
+
+    <aspects>
+        <aspect name="acc:verifiable">
+            <title>Verifiable</title>
+            <properties>
+                <property name="acc:verified">
+                    <type>d:boolean</type>
+                    <default>false</default>
+                </property>
+                <property name="acc:verifiedDate">
+                    <type>d:date</type>
+                </property>
+
+                <property name="acc:status">
+                    <type>d:text</type>
+                </property>
+            </properties>
+        </aspect>
+
+        <aspect name="acc:archivable">
+            <title>Archivable</title>
+            <properties>
+                <property name="acc:archiveDate">
+                    <type>d:date</type>
+                    <mandatory>true</mandatory>
+                </property>
+                <property name="acc:storageLocation">
+                    <type>d:text</type>
+                    <mandatory>true</mandatory>
+                </property>
+                <property name="acc:archiveType">
+                    <type>d:text</type>
+                    <constraints>
+                        <constraint ref="acc:archiveType" />
+                    </constraints>
+                </property>
+            </properties>
+        </aspect>
+    </aspects>
+
+
+</model>

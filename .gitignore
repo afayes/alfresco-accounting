@@ -3,4 +3,6 @@
 /.project
 /.settings
 /*.log*
-/overlays
+/overlayss
+/.idea
+*.iml
