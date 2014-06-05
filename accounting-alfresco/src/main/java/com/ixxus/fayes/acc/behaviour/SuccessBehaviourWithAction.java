@@ -1,6 +1,5 @@
 package com.ixxus.fayes.acc.behaviour;
 
-import com.ixxus.fayes.acc.action.SuccessActionExecutor;
 import com.ixxus.fayes.acc.action.SuccessAttributeActionExecutor;
 import com.ixxus.fayes.model.SomeCoRatingsModel;
 import org.alfresco.repo.node.NodeServicePolicies;
