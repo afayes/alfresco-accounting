@@ -24,13 +24,26 @@
         </property>
     </bean>
 
-    <bean id="successBehavior" class="com.ixxus.fayes.acc.behaviour.SuccessBehaviour"
+    <bean id="successBehaviorWithAction" class="com.ixxus.fayes.acc.behaviour.SuccessBehaviourWithAction"
           init-method="init">
         <property name="nodeService">
             <ref bean="NodeService" />
         </property>
+        <property name="actionService">
+            <ref bean="ActionService" />
+        </property>
         <property name="policyComponent">
             <ref bean="policyComponent" />
+        </property>
+    </bean>
+
+    <!-- Add aspect custom action -->
+    <bean id="successAttributeAction" class="com.ixxus.fayes.acc.action.SuccessAttributeActionExecutor" parent="action-executer">
+        <property name="nodeService">
+            <ref bean="NodeService" />
+        </property>
+        <property name="attributeService">
+            <ref bean="AttributeService" />
         </property>
     </bean>
 

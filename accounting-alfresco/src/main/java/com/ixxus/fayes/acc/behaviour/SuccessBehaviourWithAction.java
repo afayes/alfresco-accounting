@@ -1,10 +1,14 @@
 package com.ixxus.fayes.acc.behaviour;
 
+import com.ixxus.fayes.acc.action.SuccessActionExecutor;
+import com.ixxus.fayes.acc.action.SuccessAttributeActionExecutor;
 import com.ixxus.fayes.model.SomeCoRatingsModel;
 import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.repo.policy.Behaviour;
 import org.alfresco.repo.policy.JavaBehaviour;
 import org.alfresco.repo.policy.PolicyComponent;
+import org.alfresco.service.cmr.action.Action;
+import org.alfresco.service.cmr.action.ActionService;
 import org.alfresco.service.cmr.repository.NodeRef;
 import org.alfresco.service.cmr.repository.NodeService;
 import org.alfresco.service.namespace.NamespaceService;
@@ -14,11 +18,12 @@ import org.apache.log4j.Logger;
 /**
  * Created by afayes on 04/06/2014.
  */
-public class SuccessBehaviour implements NodeServicePolicies.OnAddAspectPolicy {
-    // Dependencies //
+public class SuccessBehaviourWithAction implements NodeServicePolicies.OnAddAspectPolicy {
+    // Dependencies
     private NodeService nodeService;
+    private ActionService actionService;
     private PolicyComponent policyComponent;
-    private Logger logger = Logger.getLogger(SuccessBehaviour.class);
+    private Logger logger = Logger.getLogger(SuccessBehaviourWithAction.class);
 
 
     // Behaviours
@@ -38,21 +43,21 @@ public class SuccessBehaviour implements NodeServicePolicies.OnAddAspectPolicy {
     public void onAddAspect(NodeRef nodeRef, QName qName) {
         if (logger.isDebugEnabled()) logger.debug("Inside onAddAspect");
         nodeService.setProperty(nodeRef, QName.createQName(SomeCoRatingsModel.NAMESPACE_ACCOUNTING_CONTENT_MODEL, SomeCoRatingsModel.PROP_STATUS), "SUCCESS");
-    }
 
-    public NodeService getNodeService() {
-        return nodeService;
+        Action successAction = actionService.createAction(SuccessAttributeActionExecutor.NAME);
+        successAction.setParameterValue(SuccessAttributeActionExecutor.PARAM_PROPERTY_NAME, QName.createQName(SomeCoRatingsModel.NAMESPACE_ACCOUNTING_CONTENT_MODEL, SomeCoRatingsModel.PROP_STATUS));
+        actionService.executeAction(successAction, nodeRef, false, true);
     }
 
     public void setNodeService(NodeService nodeService) {
         this.nodeService = nodeService;
     }
 
-    public PolicyComponent getPolicyComponent() {
-        return policyComponent;
-    }
-
     public void setPolicyComponent(PolicyComponent policyComponent) {
         this.policyComponent = policyComponent;
+    }
+
+    public void setActionService(ActionService actionService) {
+        this.actionService = actionService;
     }
 }
