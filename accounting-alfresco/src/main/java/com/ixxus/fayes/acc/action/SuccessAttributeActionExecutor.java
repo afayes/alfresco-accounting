@@ -30,7 +30,6 @@ public class SuccessAttributeActionExecutor extends ActionExecuterAbstractBase {
      */
     @Override
     protected void addParameterDefinitions(List<ParameterDefinition> paramList) {
-        // todo
         // Add definitions for action parameters
         paramList.add(
                 new ParameterDefinitionImpl(                       // Create a new parameter defintion to add to the list

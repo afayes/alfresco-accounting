@@ -26,7 +26,6 @@ public class SuccessBehaviour implements NodeServicePolicies.OnAddAspectPolicy {
 
     public void init() {
         if (logger.isDebugEnabled()) logger.debug("Initializing rateable behaviors");
-        System.out.println("inside behaviour init"); // todo use proper loggine for this
         // Create behaviours
         this.onAddAspect = new JavaBehaviour(this, "onAddAspect", Behaviour.NotificationFrequency.TRANSACTION_COMMIT);
 
